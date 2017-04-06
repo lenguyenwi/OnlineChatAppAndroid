@@ -1,0 +1,23 @@
+<?php
+// Connect Database
+$conn = mysqli_connect('db588171695.db.1and1.com', 'dbo588171695', '', 'db588171695') or die ('Can not connect to mysql');
+$username = $_POST["username"];
+ 
+// Get List Member
+$query = mysqli_query($conn, 'select * from Chat WHERE username = ?');
+ 
+// Bi?n result
+$chat = array();
+ 
+if (mysqli_num_rows($query) > 0)
+{
+    while ($row = mysqli_fetch_array($query, MYSQL_ASSOC)){
+        $chat[] = array(
+            'username' => $row['username'],
+            'chatcontext' => $row['chatcontext']
+        );
+    }
+}
+ 
+die (json_encode($chat));
+?>
